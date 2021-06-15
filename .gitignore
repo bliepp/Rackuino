@@ -1,3 +1,7 @@
+# ---> Own
+# Arduino
+configuration.h
+
 # ---> C
 # Prerequisites
 *.d
