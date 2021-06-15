@@ -9,10 +9,9 @@
 #define BUTTON(no) ((no) + BUTTON_0)
 #define LED(no) (BUTTON(no) + N_BUTTONS)
 
-#define STATE_CHANGED(arr) (arr)[0][i]
+#define STATE_CHANGED(arr) (arr)[0] - (arr)[1]
 #define PRESSED -1 // new is low, old is high
 #define RELEASED 1 // new is high, old is low
-#define DEBOUNCE_TIME 10
 
 
 // GLOBAL VARIABLES

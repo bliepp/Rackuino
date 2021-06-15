@@ -20,12 +20,12 @@ void setup() {
 void loop() {
 	for (uint8_t i = 0; i < N_BUTTONS; i++){
 		button_state[i][0] = digitalRead(BUTTON(i));
-		switch (button_state[i][0] - button_state[i][1])
+		switch (STATE_CHANGED(button_state[i]))
 		{
 		case RELEASED:
 			if (!is_toggleable(i))
 				MIDI.sendControlChange(CC_NUMBER(i), 0, CHANNEL);
-			button_state[1][i] = button_state[0][i];
+			button_state[i][1] = button_state[i][0];
 			delay(DEBOUNCE_TIME); // I know, it's bad. But this is the easiest solution. This is not about time critical buttons.
 			break;
 		case PRESSED:
@@ -35,7 +35,7 @@ void loop() {
 				MIDI.sendControlChange(CC_NUMBER(i), 127*bitRead(toggled, i), CHANNEL);
 				bitToggle(toggled, i);
 			}
-			button_state[1][i] = button_state[0][i];
+			button_state[i][1] = button_state[i][0];
 			delay(DEBOUNCE_TIME);
 			break;
 		}
