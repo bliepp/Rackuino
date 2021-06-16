@@ -1,4 +1,8 @@
+#ifndef SETUP_H
+#define SETUP_H
+
 #include <Arduino.h>
+#include <Bounce2.h>
 #if __has_include("configuration.h")
 #	include <configuration.h>
 #else
@@ -24,8 +28,8 @@
 
 
 // GLOBAL VARIABLES
-bool button_state[N_BUTTONS][2]; // 0: new, 1: old
-uint16_t toggled = 0; // 8 should enough but safe is safe -> int canbe described as array of bits/bools
+Bounce buttons[N_BUTTONS];
+uint32_t toggled = 0; // 8 should enough but safe is safe -> int can be described as array of bits/bools, so 32 buttons possible
 
 
 // FUNCTIONS
@@ -36,3 +40,5 @@ bool is_toggleable(uint8_t index){
 	}
 	return false;
 }
+
+#endif // SETUP_H
