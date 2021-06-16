@@ -5,6 +5,11 @@
 #	include <configuration_default.h>
 #endif
 
+
+// HELPERS MISSING IN ARDUINO_H
+#define bitToggle(value, bit) ((value) ^= (1UL << (bit)))
+
+
 // BUTTON SETUP
 #define BUTTON(no) ((no) + BUTTON_0)
 #define LED(no) (BUTTON(no) + N_BUTTONS)
@@ -12,6 +17,10 @@
 #define STATE_CHANGED(arr) (arr)[0] - (arr)[1]
 #define PRESSED -1 // new is low, old is high
 #define RELEASED 1 // new is high, old is low
+
+
+// MIDI SETUP
+#define CC_NUMBER(no) ((no) + CC_STARTVALUE)
 
 
 // GLOBAL VARIABLES
