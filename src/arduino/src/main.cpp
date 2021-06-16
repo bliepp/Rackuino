@@ -2,9 +2,13 @@
 #include <MIDI.h>
 
 
-
 MIDI_CREATE_DEFAULT_INSTANCE();
 
+
+// PROTOTYPES
+bool is_toggleable(uint8_t index);
+
+// ARDUINOS MAIN FUNCTIONS
 void setup() {
 	for (uint8_t i = 0; i < N_BUTTONS; i++){
 		buttons[i].attach(BUTTON(i), INPUT_PULLUP);
@@ -40,4 +44,13 @@ void loop() {
 		// SET LEDS
 		digitalWrite(LED(i), bitRead(toggled, i));
 	}
+}
+
+//  FUNCTIONS
+bool is_toggleable(uint8_t index){
+	for (uint8_t i = 0; i < sizeof(toggleable)/sizeof(toggleable[0]); i++){
+		if (index == toggleable[i])
+			return true;
+	}
+	return false;
 }

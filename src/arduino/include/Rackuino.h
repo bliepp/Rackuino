@@ -31,14 +31,4 @@
 Bounce buttons[N_BUTTONS];
 uint32_t toggled = 0; // 8 should enough but safe is safe -> int can be described as array of bits/bools, so 32 buttons possible
 
-
-// FUNCTIONS
-bool is_toggleable(uint8_t index){
-	for (uint8_t i = 0; i < sizeof(toggleable)/sizeof(toggleable[0]); i++){
-		if (index == toggleable[i])
-			return true;
-	}
-	return false;
-}
-
 #endif // SETUP_H
