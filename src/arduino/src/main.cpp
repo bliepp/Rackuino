@@ -18,32 +18,43 @@ void setup() {
 	}
 
 	MIDI.begin(MIDI_CHANNEL_OMNI);
+	MIDI.turnThruOff();
 }
 
 void loop() {
+	// MIDI OUT
 	for (uint8_t i = 0; i < N_BUTTONS; i++){
 		buttons[i].update();
-		// MIDI OUT
-		if (buttons[i].fell()){ // RELEASED
+		if (buttons[i].fell()){ // PRESSED
 			if (!is_toggleable(i)){
-				MIDI.sendControlChange(CC_NUMBER(i), 127, CHANNEL);
-				bitSet(toggled, i); // set bit to 1
+				bitSet(toggled_internally, i); // set bit to 1
+				MIDI.sendControlChange(INDEX_TO_CC(i), 127, CHANNEL);
 			} else {
-				MIDI.sendControlChange(CC_NUMBER(i), 127*bitRead(toggled, i), CHANNEL);
-				bitToggle(toggled, i); // invert bit
+				bitToggle(toggled_internally, i); // invert bit
+				MIDI.sendControlChange(INDEX_TO_CC(i), 127*bitRead(toggled_internally, i), CHANNEL);
 			}
 		}
-		if (buttons[i].rose()){ // PRESSED
+		if (buttons[i].rose()){ // RELEASED
 			if (!is_toggleable(i)){
-				MIDI.sendControlChange(CC_NUMBER(i), 0, CHANNEL);
-				bitClear(toggled, i); // set bit to 0
+				bitClear(toggled_internally, i); // set bit to 0
+				MIDI.sendControlChange(INDEX_TO_CC(i), 0, CHANNEL);
 			}
 		}
-		// TODO: MIDI IN
-
-		// SET LEDS
-		digitalWrite(LED(i), bitRead(toggled, i));
 	}
+
+	// MIDI IN
+	if (MIDI.read()){
+		if (MIDI.getType() == midi::ControlChange){
+			int16_t cc = CC_TO_INDEX(MIDI.getData1());
+			if (cc >= 0 and cc < N_BUTTONS){
+				bitWrite(toggled_externally, cc, MIDI.getData2() > 64);
+			}
+		}
+	}
+
+	// SET LEDS
+	for (uint8_t i = 0; i < N_BUTTONS; i++)
+		digitalWrite(LED(i), bitRead(toggled_internally | toggled_externally, i));
 }
 
 //  FUNCTIONS
