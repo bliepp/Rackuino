@@ -19,6 +19,13 @@ void setup() {
 
 	MIDI.begin(MIDI_CHANNEL_IN);//  Only listen to one port
 	MIDI.turnThruOff();
+
+#ifdef STARTUP_ANIMATION
+	for (uint8_t i = 0; i < 2*N_BUTTONS; i++){
+		digitalWrite(LED(i % N_BUTTONS), i < N_BUTTONS);
+		delay(STARTUP_ANIMATION_STEP);
+	}
+#endif
 }
 
 void loop() {

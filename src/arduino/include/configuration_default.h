@@ -1,5 +1,10 @@
 #include <Arduino.h>
 
+// GENERAL SETUP
+#define STARTUP_ANIMATION		// uncomment if animation not wanted
+#define STARTUP_ANIMATION_STEP 100	// duration between each animation step, in ms
+
+
 // BUTTON SETUP
 #define N_BUTTONS 6		// number of buttons, max: half of available digital pins.
 #define BUTTON_0 2		// pin of button 0 (where the numbering starts)
