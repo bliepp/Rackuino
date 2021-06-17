@@ -17,7 +17,7 @@ void setup() {
 		pinMode(LED(i), OUTPUT);
 	}
 
-	MIDI.begin(MIDI_CHANNEL_OMNI);
+	MIDI.begin(MIDI_CHANNEL_IN);//  Only listen to one port
 	MIDI.turnThruOff();
 }
 
@@ -28,16 +28,16 @@ void loop() {
 		if (buttons[i].fell()){ // PRESSED
 			if (!is_toggleable(i)){
 				bitSet(toggled_internally, i); // set bit to 1
-				MIDI.sendControlChange(INDEX_TO_CC(i), 127, CHANNEL);
+				MIDI.sendControlChange(INDEX_TO_CC(i), 127, MIDI_CHANNEL);
 			} else {
 				bitToggle(toggled_internally, i); // invert bit
-				MIDI.sendControlChange(INDEX_TO_CC(i), 127*bitRead(toggled_internally, i), CHANNEL);
+				MIDI.sendControlChange(INDEX_TO_CC(i), 127*bitRead(toggled_internally, i), MIDI_CHANNEL);
 			}
 		}
 		if (buttons[i].rose()){ // RELEASED
 			if (!is_toggleable(i)){
 				bitClear(toggled_internally, i); // set bit to 0
-				MIDI.sendControlChange(INDEX_TO_CC(i), 0, CHANNEL);
+				MIDI.sendControlChange(INDEX_TO_CC(i), 0, MIDI_CHANNEL);
 			}
 		}
 	}

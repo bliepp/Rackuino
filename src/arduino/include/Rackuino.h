@@ -20,12 +20,13 @@
 
 
 // MIDI SETUP
-#define INDEX_TO_CC(index) ((index) + CC_STARTVALUE)
-#define CC_TO_INDEX(cc) ((cc) - CC_STARTVALUE)
+#define INDEX_TO_CC(index) ((index) + MIDI_CC_STARTVALUE)
+#define CC_TO_INDEX(cc) ((cc) - MIDI_CC_STARTVALUE)
 
 
 // GLOBAL VARIABLES
 Bounce buttons[N_BUTTONS];
+uint8_t toggleable[] = {TOGGLEABLE};
 uint32_t toggled_internally = 0; // 8 should enough but safe is safe -> int can be described as array of bits/bools, so 32 buttons possible
 uint32_t toggled_externally = 0;
 
