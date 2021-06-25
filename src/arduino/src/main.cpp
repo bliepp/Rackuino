@@ -37,6 +37,7 @@ void loop() {
 		if (buttons[i].fell()){ // PRESSED
 			if (!is_toggleable(i)){
 				bitSet(toggled_internally, i); // set bit to 1
+				bitClear(toggled_externally, i); // make switch override status set externally to make LEDs resetable
 				MIDI.sendControlChange(INDEX_TO_CC(i), 127, MIDI_CHANNEL);
 			} else {
 				bitToggle(toggled_internally, i); // invert bit
