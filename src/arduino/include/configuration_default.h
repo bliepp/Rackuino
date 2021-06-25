@@ -9,8 +9,8 @@
 
 
 // LED SETUP
-#define USE_LEDS					// comment if you don't want to use a LED per button
-#define STARTUP_ANIMATION			// uncomment if animation not wanted
+#define USE_LEDS			// comment if you don't want to use a LED per button
+#define STARTUP_ANIMATION		// uncomment if animation not wanted
 #define STARTUP_ANIMATION_STEP 100	// duration between each animation step, in ms
 #define LED_OFFSET N_BUTTONS		// offset between BUTTON(i) and LED(i), default: N_BUTTONS (button pins directly followed by led pins)
 
