@@ -14,18 +14,20 @@ void setup() {
 		buttons[i].attach(BUTTON(i), INPUT_PULLUP);
 		buttons[i].interval(DEBOUNCE_TIME);
 
+	#if defined(USE_LEDS)
 		pinMode(LED(i), OUTPUT);
+	#endif
 	}
 
 	MIDI.begin(MIDI_CHANNEL_IN);//  Only listen to one port
 	MIDI.turnThruOff();
 
-#ifdef STARTUP_ANIMATION
+	#if defined(STARTUP_ANIMATION) && defined(USE_LEDS)
 	for (uint8_t i = 0; i < 2*N_BUTTONS; i++){
 		digitalWrite(LED(i % N_BUTTONS), i < N_BUTTONS);
 		delay(STARTUP_ANIMATION_STEP);
 	}
-#endif
+	#endif
 }
 
 void loop() {
@@ -60,8 +62,10 @@ void loop() {
 	}
 
 	// SET LEDS
+	#if defined(USE_LEDS)
 	for (uint8_t i = 0; i < N_BUTTONS; i++)
 		digitalWrite(LED(i), bitRead(toggled_internally | toggled_externally, i));
+	#endif
 }
 
 //  FUNCTIONS

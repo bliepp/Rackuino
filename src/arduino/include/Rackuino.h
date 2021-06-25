@@ -16,7 +16,10 @@
 
 // BUTTON SETUP
 #define BUTTON(no) ((no) + BUTTON_0)
-#define LED(no) (BUTTON(no) + N_BUTTONS)
+
+
+// LED SETUP
+#define LED(no) (BUTTON(no) + LED_OFFSET)
 
 
 // MIDI SETUP
