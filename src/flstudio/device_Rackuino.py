@@ -28,7 +28,7 @@ class Rackuino():
     def lights_off(self):
         if device.isAssigned():
             for i in range(len(BUTTONS)):
-                device.midiOutMsg(176, CHANNEL, BUTTONS[i], 0) # TODO: set correct midi msg status byte
+                device.midiOutMsg(176, CHANNEL, BUTTONS[i], 0)
 
     def set_lights(self):
         if device.isAssigned():
