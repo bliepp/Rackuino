@@ -15,11 +15,11 @@
 
 
 // BUTTON SETUP
-#define BUTTON(no) ((no) + BUTTON_0)
+#define BUTTON(index) ((index) + BUTTON_0)
 
 
 // LED SETUP
-#define LED(no) (BUTTON(no) + LED_OFFSET)
+#define LED(index) (BUTTON(index) + LED_OFFSET)
 
 
 // MIDI SETUP
@@ -30,7 +30,7 @@
 // GLOBAL VARIABLES
 Bounce buttons[N_BUTTONS];
 uint8_t toggleable[] = {TOGGLEABLE};
-uint32_t toggled_internally = 0; // 8 should enough but safe is safe -> int can be described as array of bits/bools, so 32 buttons possible
-uint32_t toggled_externally = 0;
+uint32_t toggled_internally = 0;	// 8 should enough but safe is safe, int can be seen
+uint32_t toggled_externally = 0;	// as array of bits/bools, so 32 buttons possible
 
 #endif // SETUP_H
